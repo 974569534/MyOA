@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.dao.MessageMapper" >
+  <resultMap id="BaseResultMap" type="org.java.entity.Message" >
+    <id column="MessageId" property="messageid" jdbcType="INTEGER" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="Content" property="content" jdbcType="VARCHAR" />
+    <result column="Type" property="type" jdbcType="INTEGER" />
+    <result column="BeginTime" property="begintime" jdbcType="TIMESTAMP" />
+    <result column="EndTime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="FromUserId" property="fromuserid" jdbcType="VARCHAR" />
+    <result column="IfPublish" property="ifpublish" jdbcType="INTEGER" />
+    <result column="RecordTime" property="recordtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MessageId, Title, Content, Type, BeginTime, EndTime, FromUserId, IfPublish, RecordTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where MessageId = #{messageid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from message
+    where MessageId = #{messageid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.java.entity.Message" >
+    insert into message (MessageId, Title, Content, 
+      Type, BeginTime, EndTime, 
+      FromUserId, IfPublish, RecordTime
+      )
+    values (#{messageid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{begintime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, 
+      #{fromuserid,jdbcType=VARCHAR}, #{ifpublish,jdbcType=INTEGER}, #{recordtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.java.entity.Message" >
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageid != null" >
+        MessageId,
+      </if>
+      <if test="title != null" >
+        Title,
+      </if>
+      <if test="content != null" >
+        Content,
+      </if>
+      <if test="type != null" >
+        Type,
+      </if>
+      <if test="begintime != null" >
+        BeginTime,
+      </if>
+      <if test="endtime != null" >
+        EndTime,
+      </if>
+      <if test="fromuserid != null" >
+        FromUserId,
+      </if>
+      <if test="ifpublish != null" >
+        IfPublish,
+      </if>
+      <if test="recordtime != null" >
+        RecordTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageid != null" >
+        #{messageid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="begintime != null" >
+        #{begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fromuserid != null" >
+        #{fromuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="ifpublish != null" >
+        #{ifpublish,jdbcType=INTEGER},
+      </if>
+      <if test="recordtime != null" >
+        #{recordtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.java.entity.Message" >
+    update message
+    <set >
+      <if test="title != null" >
+        Title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        Content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        Type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="begintime != null" >
+        BeginTime = #{begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        EndTime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fromuserid != null" >
+        FromUserId = #{fromuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="ifpublish != null" >
+        IfPublish = #{ifpublish,jdbcType=INTEGER},
+      </if>
+      <if test="recordtime != null" >
+        RecordTime = #{recordtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where MessageId = #{messageid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.java.entity.Message" >
+    update message
+    set Title = #{title,jdbcType=VARCHAR},
+      Content = #{content,jdbcType=VARCHAR},
+      Type = #{type,jdbcType=INTEGER},
+      BeginTime = #{begintime,jdbcType=TIMESTAMP},
+      EndTime = #{endtime,jdbcType=TIMESTAMP},
+      FromUserId = #{fromuserid,jdbcType=VARCHAR},
+      IfPublish = #{ifpublish,jdbcType=INTEGER},
+      RecordTime = #{recordtime,jdbcType=TIMESTAMP}
+    where MessageId = #{messageid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.dao.EmailtouserMapper" >
+  <resultMap id="BaseResultMap" type="org.java.entity.Emailtouser" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="EamilId" property="eamilid" jdbcType="INTEGER" />
+    <result column="UserId" property="userid" jdbcType="VARCHAR" />
+    <result column="IfRead" property="ifread" jdbcType="INTEGER" />
+    <result column="IfDel" property="ifdel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, EamilId, UserId, IfRead, IfDel
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from emailtouser
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from emailtouser
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 根据新发送的邮件添加一个发送对象 -->
+  <insert id="insert" parameterType="org.java.entity.Emailtouser" >
+    insert into emailtouser (Id, EamilId, UserId, 
+      IfRead, IfDel)
+    values (#{id,jdbcType=INTEGER}, #{eamilid,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, 
+      #{ifread,jdbcType=INTEGER}, #{ifdel,jdbcType=INTEGER})
+  </insert>
+  
+  <!-- 是否已经阅读 -->
+  <update id="updateByEamilId" parameterType="org.java.entity.Emailtouser" >
+  	update emailtouser set IfRead=1 where eamilid=#{eamilid} and userid=#{userid}
+  </update>
+  
+  <!-- 是否已经被删除 -->
+  <update id="updateDelEamilId" parameterType="org.java.entity.Emailtouser" >
+  	update emailtouser set IfDel=1 where eamilid=#{eamilid} and userid=#{userid}
+  </update>
+  
+  
+  <insert id="insertSelective" parameterType="org.java.entity.Emailtouser" >
+    insert into emailtouser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="eamilid != null" >
+        EamilId,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="ifread != null" >
+        IfRead,
+      </if>
+      <if test="ifdel != null" >
+        IfDel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="eamilid != null" >
+        #{eamilid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="ifread != null" >
+        #{ifread,jdbcType=INTEGER},
+      </if>
+      <if test="ifdel != null" >
+        #{ifdel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.java.entity.Emailtouser" >
+    update emailtouser
+    <set >
+      <if test="eamilid != null" >
+        EamilId = #{eamilid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="ifread != null" >
+        IfRead = #{ifread,jdbcType=INTEGER},
+      </if>
+      <if test="ifdel != null" >
+        IfDel = #{ifdel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.java.entity.Emailtouser" >
+    update emailtouser
+    set EamilId = #{eamilid,jdbcType=INTEGER},
+      UserId = #{userid,jdbcType=VARCHAR},
+      IfRead = #{ifread,jdbcType=INTEGER},
+      IfDel = #{ifdel,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

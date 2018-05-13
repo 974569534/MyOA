@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.dao.OperatelogMapper" >
+  <resultMap id="BaseResultMap" type="org.java.entity.Operatelog" >
+    <id column="OperateId" property="operateid" jdbcType="INTEGER" />
+    <result column="UserId" property="userid" jdbcType="VARCHAR" />
+    <result column="OperateName" property="operatename" jdbcType="VARCHAR" />
+    <result column="ObjectId" property="objectid" jdbcType="VARCHAR" />
+    <result column="OperateDesc" property="operatedesc" jdbcType="VARCHAR" />
+    <result column="OperateTime" property="operatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    OperateId, UserId, OperateName, ObjectId, OperateDesc, OperateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from operatelog
+    where OperateId = #{operateid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from operatelog
+    where OperateId = #{operateid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.java.entity.Operatelog" >
+    insert into operatelog (OperateId, UserId, OperateName, 
+      ObjectId, OperateDesc, OperateTime
+      )
+    values (#{operateid,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{operatename,jdbcType=VARCHAR}, 
+      #{objectid,jdbcType=VARCHAR}, #{operatedesc,jdbcType=VARCHAR}, #{operatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.java.entity.Operatelog" >
+    insert into operatelog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operateid != null" >
+        OperateId,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="operatename != null" >
+        OperateName,
+      </if>
+      <if test="objectid != null" >
+        ObjectId,
+      </if>
+      <if test="operatedesc != null" >
+        OperateDesc,
+      </if>
+      <if test="operatetime != null" >
+        OperateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="operateid != null" >
+        #{operateid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="operatename != null" >
+        #{operatename,jdbcType=VARCHAR},
+      </if>
+      <if test="objectid != null" >
+        #{objectid,jdbcType=VARCHAR},
+      </if>
+      <if test="operatedesc != null" >
+        #{operatedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="operatetime != null" >
+        #{operatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.java.entity.Operatelog" >
+    update operatelog
+    <set >
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="operatename != null" >
+        OperateName = #{operatename,jdbcType=VARCHAR},
+      </if>
+      <if test="objectid != null" >
+        ObjectId = #{objectid,jdbcType=VARCHAR},
+      </if>
+      <if test="operatedesc != null" >
+        OperateDesc = #{operatedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="operatetime != null" >
+        OperateTime = #{operatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where OperateId = #{operateid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.java.entity.Operatelog" >
+    update operatelog
+    set UserId = #{userid,jdbcType=VARCHAR},
+      OperateName = #{operatename,jdbcType=VARCHAR},
+      ObjectId = #{objectid,jdbcType=VARCHAR},
+      OperateDesc = #{operatedesc,jdbcType=VARCHAR},
+      OperateTime = #{operatetime,jdbcType=TIMESTAMP}
+    where OperateId = #{operateid,jdbcType=INTEGER}
+  </update>
+</mapper>

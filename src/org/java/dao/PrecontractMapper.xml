@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.dao.PrecontractMapper" >
+  <resultMap id="BaseResultMap" type="org.java.entity.Precontract" >
+    <id column="MeetingId" property="meetingid" jdbcType="INTEGER" />
+    <result column="ScheduleId" property="scheduleid" jdbcType="INTEGER" />
+    <result column="UserId" property="userid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MeetingId, ScheduleId, UserId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from precontract
+    where MeetingId = #{meetingid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from precontract
+    where MeetingId = #{meetingid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.java.entity.Precontract" >
+    insert into precontract (MeetingId, ScheduleId, UserId
+      )
+    values (#{meetingid,jdbcType=INTEGER}, #{scheduleid,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.java.entity.Precontract" >
+    insert into precontract
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="meetingid != null" >
+        MeetingId,
+      </if>
+      <if test="scheduleid != null" >
+        ScheduleId,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="meetingid != null" >
+        #{meetingid,jdbcType=INTEGER},
+      </if>
+      <if test="scheduleid != null" >
+        #{scheduleid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.java.entity.Precontract" >
+    update precontract
+    <set >
+      <if test="scheduleid != null" >
+        ScheduleId = #{scheduleid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MeetingId = #{meetingid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.java.entity.Precontract" >
+    update precontract
+    set ScheduleId = #{scheduleid,jdbcType=INTEGER},
+      UserId = #{userid,jdbcType=VARCHAR}
+    where MeetingId = #{meetingid,jdbcType=INTEGER}
+  </update>
+</mapper>

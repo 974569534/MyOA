@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.dao.MynoteMapper" >
+  <resultMap id="BaseResultMap" type="org.java.entity.Mynote" >
+    <id column="NoteId" property="noteid" jdbcType="INTEGER" />
+    <result column="NoteTitle" property="notetitle" jdbcType="VARCHAR" />
+    <result column="NoteContent" property="notecontent" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="CreateUser" property="createuser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    NoteId, NoteTitle, NoteContent, CreateTime, CreateUser
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mynote
+    where NoteId = #{noteid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mynote
+    where NoteId = #{noteid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.java.entity.Mynote" >
+    insert into mynote (NoteId, NoteTitle, NoteContent, 
+      CreateTime, CreateUser)
+    values (#{noteid,jdbcType=INTEGER}, #{notetitle,jdbcType=VARCHAR}, #{notecontent,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{createuser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.java.entity.Mynote" >
+    insert into mynote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="noteid != null" >
+        NoteId,
+      </if>
+      <if test="notetitle != null" >
+        NoteTitle,
+      </if>
+      <if test="notecontent != null" >
+        NoteContent,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="createuser != null" >
+        CreateUser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="noteid != null" >
+        #{noteid,jdbcType=INTEGER},
+      </if>
+      <if test="notetitle != null" >
+        #{notetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="notecontent != null" >
+        #{notecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.java.entity.Mynote" >
+    update mynote
+    <set >
+      <if test="notetitle != null" >
+        NoteTitle = #{notetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="notecontent != null" >
+        NoteContent = #{notecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createuser != null" >
+        CreateUser = #{createuser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where NoteId = #{noteid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.java.entity.Mynote" >
+    update mynote
+    set NoteTitle = #{notetitle,jdbcType=VARCHAR},
+      NoteContent = #{notecontent,jdbcType=VARCHAR},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      CreateUser = #{createuser,jdbcType=VARCHAR}
+    where NoteId = #{noteid,jdbcType=INTEGER}
+  </update>
+</mapper>

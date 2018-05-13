@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.dao.ReadcommonmessageMapper" >
+  <resultMap id="BaseResultMap" type="org.java.entity.Readcommonmessage" >
+    <id column="ReadId" property="readid" jdbcType="INTEGER" />
+    <result column="MessageId" property="messageid" jdbcType="INTEGER" />
+    <result column="UserId" property="userid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ReadId, MessageId, UserId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from readcommonmessage
+    where ReadId = #{readid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from readcommonmessage
+    where ReadId = #{readid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.java.entity.Readcommonmessage" >
+    insert into readcommonmessage (ReadId, MessageId, UserId
+      )
+    values (#{readid,jdbcType=INTEGER}, #{messageid,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.java.entity.Readcommonmessage" >
+    insert into readcommonmessage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="readid != null" >
+        ReadId,
+      </if>
+      <if test="messageid != null" >
+        MessageId,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="readid != null" >
+        #{readid,jdbcType=INTEGER},
+      </if>
+      <if test="messageid != null" >
+        #{messageid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.java.entity.Readcommonmessage" >
+    update readcommonmessage
+    <set >
+      <if test="messageid != null" >
+        MessageId = #{messageid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ReadId = #{readid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.java.entity.Readcommonmessage" >
+    update readcommonmessage
+    set MessageId = #{messageid,jdbcType=INTEGER},
+      UserId = #{userid,jdbcType=VARCHAR}
+    where ReadId = #{readid,jdbcType=INTEGER}
+  </update>
+</mapper>

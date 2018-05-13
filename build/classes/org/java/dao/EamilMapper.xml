@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.dao.EamilMapper" >
+  <resultMap id="BaseResultMap" type="org.java.entity.Eamil" >
+    <id column="EamilId" property="eamilid" jdbcType="INTEGER" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="EamilContent" property="eamilcontent" jdbcType="VARCHAR" />
+    <result column="FromUserId" property="fromuserid" jdbcType="VARCHAR" />
+    <result column="IfPublish" property="ifpublish" jdbcType="INTEGER" />
+    <result column="RecordTime" property="recordtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    EamilId, Title, EamilContent, FromUserId, IfPublish, RecordTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from eamil
+    where EamilId = #{eamilid,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询所有邮件 -->
+  <select id="selectAll" resultType="m">
+  	SELECT * FROM eamil e,emailtouser et,userinfo u WHERE e.EamilId=et.EamilId AND et.UserId=u.UserId  AND e.FromUserId = #{userid} ORDER BY IfRead DESC
+  </select>
+  
+  <!-- 查询某条邮件的详细信息 -->
+  <select id="selectByDetails" resultType="m">
+  	SELECT * FROM eamil e,emailtouser et,userinfo u WHERE e.EamilId=et.EamilId AND et.UserId=u.UserId  AND e.FromUserId = #{userid} and e.EamilId=#{eamilid}
+  </select>
+  
+  <!-- 查询所有已读 -->
+  <select id="selectByDraft" resultType="m">
+SELECT * FROM eamil e,emailtouser et,userinfo u WHERE e.EamilId=et.EamilId AND et.UserId=u.UserId AND IfPublish = #{ifpublish}  </select> 
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from eamil
+    where EamilId = #{eamilid,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 添加一份新邮件 -->
+  <insert id="insert" parameterType="org.java.entity.Eamil" >
+    insert into eamil (EamilId, Title, EamilContent, 
+      FromUserId, IfPublish, RecordTime
+      )
+    values (#{eamilid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{eamilcontent,jdbcType=VARCHAR}, 
+      #{fromuserid,jdbcType=VARCHAR}, #{ifpublish,jdbcType=INTEGER}, #{recordtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="org.java.entity.Eamil" >
+    insert into eamil
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eamilid != null" >
+        EamilId,
+      </if>
+      <if test="title != null" >
+        Title,
+      </if>
+      <if test="eamilcontent != null" >
+        EamilContent,
+      </if>
+      <if test="fromuserid != null" >
+        FromUserId,
+      </if>
+      <if test="ifpublish != null" >
+        IfPublish,
+      </if>
+      <if test="recordtime != null" >
+        RecordTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eamilid != null" >
+        #{eamilid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="eamilcontent != null" >
+        #{eamilcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="fromuserid != null" >
+        #{fromuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="ifpublish != null" >
+        #{ifpublish,jdbcType=INTEGER},
+      </if>
+      <if test="recordtime != null" >
+        #{recordtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.java.entity.Eamil" >
+    update eamil
+    <set >
+      <if test="title != null" >
+        Title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="eamilcontent != null" >
+        EamilContent = #{eamilcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="fromuserid != null" >
+        FromUserId = #{fromuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="ifpublish != null" >
+        IfPublish = #{ifpublish,jdbcType=INTEGER},
+      </if>
+      <if test="recordtime != null" >
+        RecordTime = #{recordtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where EamilId = #{eamilid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.java.entity.Eamil" >
+    update eamil
+    set Title = #{title,jdbcType=VARCHAR},
+      EamilContent = #{eamilcontent,jdbcType=VARCHAR},
+      FromUserId = #{fromuserid,jdbcType=VARCHAR},
+      IfPublish = #{ifpublish,jdbcType=INTEGER},
+      RecordTime = #{recordtime,jdbcType=TIMESTAMP}
+    where EamilId = #{eamilid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.dao.LoginlogMapper" >
+  <resultMap id="BaseResultMap" type="org.java.entity.Loginlog" >
+    <id column="LoginId" property="loginid" jdbcType="INTEGER" />
+    <result column="UserId" property="userid" jdbcType="VARCHAR" />
+    <result column="LoginTime" property="logintime" jdbcType="TIMESTAMP" />
+    <result column="IfSuccess" property="ifsuccess" jdbcType="INTEGER" />
+    <result column="LoginUserIp" property="loginuserip" jdbcType="VARCHAR" />
+    <result column="LoginDesc" property="logindesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LoginId, UserId, LoginTime, IfSuccess, LoginUserIp, LoginDesc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from loginlog
+    where LoginId = #{loginid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loginlog
+    where LoginId = #{loginid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.java.entity.Loginlog" >
+    insert into loginlog (LoginId, UserId, LoginTime, 
+      IfSuccess, LoginUserIp, LoginDesc
+      )
+    values (#{loginid,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{logintime,jdbcType=TIMESTAMP}, 
+      #{ifsuccess,jdbcType=INTEGER}, #{loginuserip,jdbcType=VARCHAR}, #{logindesc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.java.entity.Loginlog" >
+    insert into loginlog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loginid != null" >
+        LoginId,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="logintime != null" >
+        LoginTime,
+      </if>
+      <if test="ifsuccess != null" >
+        IfSuccess,
+      </if>
+      <if test="loginuserip != null" >
+        LoginUserIp,
+      </if>
+      <if test="logindesc != null" >
+        LoginDesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loginid != null" >
+        #{loginid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="logintime != null" >
+        #{logintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifsuccess != null" >
+        #{ifsuccess,jdbcType=INTEGER},
+      </if>
+      <if test="loginuserip != null" >
+        #{loginuserip,jdbcType=VARCHAR},
+      </if>
+      <if test="logindesc != null" >
+        #{logindesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.java.entity.Loginlog" >
+    update loginlog
+    <set >
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="logintime != null" >
+        LoginTime = #{logintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifsuccess != null" >
+        IfSuccess = #{ifsuccess,jdbcType=INTEGER},
+      </if>
+      <if test="loginuserip != null" >
+        LoginUserIp = #{loginuserip,jdbcType=VARCHAR},
+      </if>
+      <if test="logindesc != null" >
+        LoginDesc = #{logindesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where LoginId = #{loginid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.java.entity.Loginlog" >
+    update loginlog
+    set UserId = #{userid,jdbcType=VARCHAR},
+      LoginTime = #{logintime,jdbcType=TIMESTAMP},
+      IfSuccess = #{ifsuccess,jdbcType=INTEGER},
+      LoginUserIp = #{loginuserip,jdbcType=VARCHAR},
+      LoginDesc = #{logindesc,jdbcType=VARCHAR}
+    where LoginId = #{loginid,jdbcType=INTEGER}
+  </update>
+</mapper>

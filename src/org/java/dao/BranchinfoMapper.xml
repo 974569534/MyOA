@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.dao.BranchinfoMapper" >
+  <resultMap id="BaseResultMap" type="org.java.entity.Branchinfo" >
+    <id column="BranchId" property="branchid" jdbcType="INTEGER" />
+    <result column="BranchName" property="branchname" jdbcType="VARCHAR" />
+    <result column="BranchShortName" property="branchshortname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BranchId, BranchName, BranchShortName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from branchinfo
+    where BranchId = #{branchid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from branchinfo
+    where BranchId = #{branchid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.java.entity.Branchinfo" >
+    insert into branchinfo (BranchId, BranchName, BranchShortName
+      )
+    values (#{branchid,jdbcType=INTEGER}, #{branchname,jdbcType=VARCHAR}, #{branchshortname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.java.entity.Branchinfo" >
+    insert into branchinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="branchid != null" >
+        BranchId,
+      </if>
+      <if test="branchname != null" >
+        BranchName,
+      </if>
+      <if test="branchshortname != null" >
+        BranchShortName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="branchid != null" >
+        #{branchid,jdbcType=INTEGER},
+      </if>
+      <if test="branchname != null" >
+        #{branchname,jdbcType=VARCHAR},
+      </if>
+      <if test="branchshortname != null" >
+        #{branchshortname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.java.entity.Branchinfo" >
+    update branchinfo
+    <set >
+      <if test="branchname != null" >
+        BranchName = #{branchname,jdbcType=VARCHAR},
+      </if>
+      <if test="branchshortname != null" >
+        BranchShortName = #{branchshortname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BranchId = #{branchid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.java.entity.Branchinfo" >
+    update branchinfo
+    set BranchName = #{branchname,jdbcType=VARCHAR},
+      BranchShortName = #{branchshortname,jdbcType=VARCHAR}
+    where BranchId = #{branchid,jdbcType=INTEGER}
+  </update>
+</mapper>

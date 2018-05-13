@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.dao.FiletypeinfoMapper" >
+  <resultMap id="BaseResultMap" type="org.java.entity.Filetypeinfo" >
+    <id column="FileTypeId" property="filetypeid" jdbcType="INTEGER" />
+    <result column="FileTypeName" property="filetypename" jdbcType="VARCHAR" />
+    <result column="FileTypeImage" property="filetypeimage" jdbcType="VARCHAR" />
+    <result column="FileTypeSuffix" property="filetypesuffix" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FileTypeId, FileTypeName, FileTypeImage, FileTypeSuffix
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from filetypeinfo
+    where FileTypeId = #{filetypeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from filetypeinfo
+    where FileTypeId = #{filetypeid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.java.entity.Filetypeinfo" >
+    insert into filetypeinfo (FileTypeId, FileTypeName, FileTypeImage, 
+      FileTypeSuffix)
+    values (#{filetypeid,jdbcType=INTEGER}, #{filetypename,jdbcType=VARCHAR}, #{filetypeimage,jdbcType=VARCHAR}, 
+      #{filetypesuffix,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.java.entity.Filetypeinfo" >
+    insert into filetypeinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="filetypeid != null" >
+        FileTypeId,
+      </if>
+      <if test="filetypename != null" >
+        FileTypeName,
+      </if>
+      <if test="filetypeimage != null" >
+        FileTypeImage,
+      </if>
+      <if test="filetypesuffix != null" >
+        FileTypeSuffix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="filetypeid != null" >
+        #{filetypeid,jdbcType=INTEGER},
+      </if>
+      <if test="filetypename != null" >
+        #{filetypename,jdbcType=VARCHAR},
+      </if>
+      <if test="filetypeimage != null" >
+        #{filetypeimage,jdbcType=VARCHAR},
+      </if>
+      <if test="filetypesuffix != null" >
+        #{filetypesuffix,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.java.entity.Filetypeinfo" >
+    update filetypeinfo
+    <set >
+      <if test="filetypename != null" >
+        FileTypeName = #{filetypename,jdbcType=VARCHAR},
+      </if>
+      <if test="filetypeimage != null" >
+        FileTypeImage = #{filetypeimage,jdbcType=VARCHAR},
+      </if>
+      <if test="filetypesuffix != null" >
+        FileTypeSuffix = #{filetypesuffix,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where FileTypeId = #{filetypeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.java.entity.Filetypeinfo" >
+    update filetypeinfo
+    set FileTypeName = #{filetypename,jdbcType=VARCHAR},
+      FileTypeImage = #{filetypeimage,jdbcType=VARCHAR},
+      FileTypeSuffix = #{filetypesuffix,jdbcType=VARCHAR}
+    where FileTypeId = #{filetypeid,jdbcType=INTEGER}
+  </update>
+</mapper>

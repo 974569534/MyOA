@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.dao.MeetinginfoMapper" >
+  <resultMap id="BaseResultMap" type="org.java.entity.Meetinginfo" >
+    <id column="MeetingId" property="meetingid" jdbcType="INTEGER" />
+    <result column="MeetingName" property="meetingname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MeetingId, MeetingName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from meetinginfo
+    where MeetingId = #{meetingid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from meetinginfo
+    where MeetingId = #{meetingid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.java.entity.Meetinginfo" >
+    insert into meetinginfo (MeetingId, MeetingName)
+    values (#{meetingid,jdbcType=INTEGER}, #{meetingname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.java.entity.Meetinginfo" >
+    insert into meetinginfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="meetingid != null" >
+        MeetingId,
+      </if>
+      <if test="meetingname != null" >
+        MeetingName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="meetingid != null" >
+        #{meetingid,jdbcType=INTEGER},
+      </if>
+      <if test="meetingname != null" >
+        #{meetingname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.java.entity.Meetinginfo" >
+    update meetinginfo
+    <set >
+      <if test="meetingname != null" >
+        MeetingName = #{meetingname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MeetingId = #{meetingid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.java.entity.Meetinginfo" >
+    update meetinginfo
+    set MeetingName = #{meetingname,jdbcType=VARCHAR}
+    where MeetingId = #{meetingid,jdbcType=INTEGER}
+  </update>
+</mapper>

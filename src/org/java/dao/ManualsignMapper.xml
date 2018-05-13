@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.dao.ManualsignMapper" >
+  <resultMap id="BaseResultMap" type="org.java.entity.Manualsign" >
+    <id column="SignId" property="signid" jdbcType="INTEGER" />
+    <result column="UserId" property="userid" jdbcType="VARCHAR" />
+    <result column="SignTime" property="signtime" jdbcType="TIMESTAMP" />
+    <result column="SignDesc" property="signdesc" jdbcType="VARCHAR" />
+    <result column="SignTag" property="signtag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SignId, UserId, SignTime, SignDesc, SignTag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from manualsign
+    where SignId = #{signid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from manualsign
+    where SignId = #{signid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.java.entity.Manualsign" >
+    insert into manualsign (SignId, UserId, SignTime, 
+      SignDesc, SignTag)
+    values (#{signid,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{signtime,jdbcType=TIMESTAMP}, 
+      #{signdesc,jdbcType=VARCHAR}, #{signtag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.java.entity.Manualsign" >
+    insert into manualsign
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="signid != null" >
+        SignId,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="signtime != null" >
+        SignTime,
+      </if>
+      <if test="signdesc != null" >
+        SignDesc,
+      </if>
+      <if test="signtag != null" >
+        SignTag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="signid != null" >
+        #{signid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="signtime != null" >
+        #{signtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signdesc != null" >
+        #{signdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="signtag != null" >
+        #{signtag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.java.entity.Manualsign" >
+    update manualsign
+    <set >
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="signtime != null" >
+        SignTime = #{signtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signdesc != null" >
+        SignDesc = #{signdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="signtag != null" >
+        SignTag = #{signtag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where SignId = #{signid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.java.entity.Manualsign" >
+    update manualsign
+    set UserId = #{userid,jdbcType=VARCHAR},
+      SignTime = #{signtime,jdbcType=TIMESTAMP},
+      SignDesc = #{signdesc,jdbcType=VARCHAR},
+      SignTag = #{signtag,jdbcType=INTEGER}
+    where SignId = #{signid,jdbcType=INTEGER}
+  </update>
+</mapper>
